@@ -1,4 +1,4 @@
-public class Homework1 {
+class Homework1 {
 
     public static void main(String[] args) {
 
@@ -8,7 +8,7 @@ public class Homework1 {
         long longy = 922337206;
         double doubly = 5555.012d;
         float floaty = 12.0f;
-        char chary = 65535;
+        char chary = 'h';
         boolean bool = false;
         System.out.println(calculate(1, 3, 5, 7));
         System.out.println(checkFromTenToTwelve(15, 4));
@@ -20,30 +20,31 @@ public class Homework1 {
 
     }
 
-    private static int calculate(int a, int b, int c, int d) {
+    static int calculate(int a, int b, int c, int d) {
 
-        return a * (b + (c / d));
+        if (d != 0) {
+            return a * (b + (c / d));
+        }
+
+        return 0;
 
     }
 
-    private static boolean checkFromTenToTwelve(int a, int b){
+    static boolean checkFromTenToTwelve(int a, int b){
 
         return ((a + b) >= 10 && (a + b) <= 20);
 
     }
 
-    private static boolean isLeapYear(int year) {
+    static boolean isLeapYear(int year) {
 
-        if (year % 400 == 0)
-        {
+        if (year % 400 == 0) {
             return true;
         }
-        else if (year % 100 == 0)
-        {
+        else if (year % 100 == 0) {
             return false;
         }
-        else if (year % 4 == 0)
-        {
+        else if (year % 4 == 0) {
             return true;
         }
 
