@@ -22,11 +22,7 @@ class Homework1 {
 
     static int calculate(int a, int b, int c, int d) {
 
-        if (d != 0) {
-            return a * (b + (c / d));
-        }
-
-        return 0;
+        return (d != 0) ? a * (b + (c / d)) : 0;
 
     }
 
