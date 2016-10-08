@@ -1,15 +1,16 @@
 class Homework1 {
 
+    byte byttie = 127;
+    short shorty = 32767;
+    int inty = 2147483647;
+    long longy = 922337206;
+    double doubly = 5555.012d;
+    float floaty = 12.0f;
+    char chary = 'h';
+    boolean bool = false;
+
     public static void main(String[] args) {
 
-        byte byttie = 127;
-        short shorty = 32767;
-        int inty = 2147483647;
-        long longy = 922337206;
-        double doubly = 5555.012d;
-        float floaty = 12.0f;
-        char chary = 'h';
-        boolean bool = false;
         System.out.println(calculate(1, 3, 5, 7));
         System.out.println(checkFromTenToTwelve(15, 4));
         System.out.println(checkFromTenToTwelve(15, 7));

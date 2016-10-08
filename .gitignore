@@ -45,3 +45,6 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+*.xml
+out/production/untitled4/Homework.class
+gb_java1_homework.iml
