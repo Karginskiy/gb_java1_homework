@@ -1,5 +1,10 @@
 import java.util.Scanner;
 
+/**
+ * @author Kargin Nikita
+ * Homework class for GB Java 1. Lesson 2.
+ */
+
 class Homework2 {
 
     static Scanner scanner = new Scanner(System.in);
@@ -53,11 +58,9 @@ class Homework2 {
 
     static int[] fillArray(int length) {
 
-        System.out.println("Введите " + length + " чисел для заполнения массива.");
-
         int[] array = new int[length];
-        for (int i = 0; i < array.length; i++) {
-            array[i] = scanner.nextInt();
+        for (int i = 0, j = 1; i < array.length; i++, j += 3) {
+            array[i] = j;
         }
 
         return array;
