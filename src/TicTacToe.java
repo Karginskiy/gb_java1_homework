@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 
 public class TicTacToe {
@@ -8,10 +9,15 @@ public class TicTacToe {
     final int FIELD_SIZE = 3;
     final int[][] field = new int[FIELD_SIZE][FIELD_SIZE];
     Scanner sc = new Scanner(System.in);
+    Random random = new Random();
 
     public static void main(String[] args) {
 
-        new TicTacToe();
+        new TicTacToe().go();
+
+    }
+
+    public void go() {
 
     }
 
@@ -38,5 +44,20 @@ public class TicTacToe {
         }
         return true;
     }
+
+    boolean checkWin(char ch) {
+        return false;
+    }
+
+    void turnAI() {
+        int x, y;
+        do {
+            x = random.nextInt();
+            y = random.nextInt();
+        } while (!isCellEmpty(x, y));
+        field[x][y] = AI;
+    }
+
+
 
 }
