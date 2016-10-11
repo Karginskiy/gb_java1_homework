@@ -17,7 +17,9 @@ public class TicTacToe {
 
     }
 
-    public void go() {
+    private void go() {
+
+
 
     }
 
@@ -31,8 +33,16 @@ public class TicTacToe {
         field[x][y] = PLAYER_DOT;
     }
 
-    boolean isCellEmpty(int x, int y) {
-        if (x < 0 || y < 0 || x > 2 || y > 2) return false;
+    private boolean isCellEmpty(int x, int y) {
+        if ((y < 0)) return false;
+        else {
+            if ((x > 2)) {
+                return false;
+            }
+            else if ((x < 0) || (y > 2)) {
+                return false;
+            }
+        }
         return field[x][y] == EMPTY_DOT;
     }
 
@@ -46,6 +56,16 @@ public class TicTacToe {
     }
 
     boolean checkWin(char ch) {
+        if (field[0][0] == ch && field[0][1] == ch && field[0][2] == ch) return true;
+        if (field[1][0] == ch && field[1][1] == ch && field[1][2] == ch) return true;
+        if (field[2][0] == ch && field[2][1] == ch && field[2][2] == ch) return true;
+
+        if (field[0][0] == ch && field[1][0] == ch && field[2][0] == ch) return true;
+        if (field[0][1] == ch && field[1][1] == ch && field[2][1] == ch) return true;
+        if (field[0][2] == ch && field[1][2] == ch && field[2][2] == ch) return true;
+
+        if (field[0][0] == ch && field[1][1] == ch && field[2][2] == ch) return true;
+        if (field[2][2] == ch && field[1][1] == ch && field[0][2] == ch) return true;
         return false;
     }
 
