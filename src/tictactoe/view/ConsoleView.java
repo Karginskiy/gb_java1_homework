@@ -3,13 +3,15 @@ package tictactoe.view;
 import tictactoe.model.Point;
 import tictactoe.model.enums.Figure;
 import tictactoe.model.Game;
+import tictactoe.model.players.AIPlayer;
+import tictactoe.model.players.AbstractPlayer;
+import tictactoe.model.players.HumanPlayer;
 
 import java.io.PrintStream;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ConsoleView {
-
-    private Scanner scanner = new Scanner(System.in);
 
     public PrintStream getStream() {
         return stream;
@@ -39,15 +41,37 @@ public class ConsoleView {
 
     public Point getAMove() {
 
-        stream.println("Make a move! Coordinates x, y");
-        Point point = new Point(scanner.nextInt(), scanner.nextInt());
-        return point;
+        while (true) {
+            try {
+                final Scanner sc = new Scanner(System.in);
+                stream.println("Make a move! Coordinates x, y");
+                Point point = new Point(sc.nextInt(), sc.nextInt());
+                return point;
+            } catch (Exception e) {
+                stream.println("Wrong coordinate!");
+            }
+        }
+    }
+
+    public void printWinner(AbstractPlayer player) {
+
+        if (player instanceof AIPlayer) {
+            stream.println("Sorry.. You've lost..");
+        } else if (player == null) {
+            System.out.println("It's draw!");
+        } else {
+            stream.printf("You won, %s", ((HumanPlayer) player).getName());
+        }
+    }
+
+    public void printTurnPlayerName(AbstractPlayer player) {
+
+        if (player instanceof AIPlayer) {
+            stream.println("AI's turn");
+        } else {
+            stream.println(((HumanPlayer) player).getName() + "'s turn");
+        }
 
     }
 
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
-        scanner.close();
-    }
 }
