@@ -25,7 +25,8 @@ public class ConsoleView {
     public void printField() {
         for (Figure[] value : currentGame.getField().getFigures()) {
             for (int i = 0; i < value.length; i++) {
-                stream.print((i != 2) ? value[i].getValue() + "|" : value[i].getValue());
+                stream.print((i != (currentGame.getField().getSIZE()) - 1) ?
+                        value[i].getValue() + "|" : value[i].getValue());
             }
             stream.println();
         }
