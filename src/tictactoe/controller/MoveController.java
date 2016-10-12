@@ -21,6 +21,31 @@ class MoveController {
         Random random = new Random();
 
         switch (player.getDifficulty()) {
+            case HARD:
+                for (int y = 0; y < field.getSIZE(); y++) {
+                    for (int x = 0; x < field.getSIZE(); x++) {
+                        if (isSet(new Point(x, y), humanPlayer.getFigure())) {
+                            for (int y1 = y; y1 < y + field.getSIZE(); y1++) {
+                                for (int x1 = x; x1 < x + field.getSIZE(); x1++) {
+                                    if (!((y == y1) && (x == x1))) {
+                                        if (isSet(new Point(x1, y1), humanPlayer.getFigure())) {
+                                            // blocking continuation forward
+                                            if (isSet(new Point(x * 2 - x1, y * 2 - y1), Figure.EMPTY)) {
+                                                field.setFigure(new Point((x * 2 - x1), (y * 2 - y1)), player.getFigure());
+                                                return;
+                                            }
+                                            // blocking continuation back
+                                            if (isSet(new Point(x1 * 2 - x, y1 * 2 - y), Figure.EMPTY)) {
+                                                field.setFigure(new Point((x1 * 2 - x), (y1 * 2 - y)), player.getFigure());
+                                                return;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             case EASY:
                 while (true) {
                     int x_rand = random.nextInt(3);
@@ -29,31 +54,6 @@ class MoveController {
                     if (isSet(point, Figure.EMPTY)) {
                         this.field.setFigure(point, player.getFigure());
                         break;
-                    }
-                }
-                break;
-            case HARD:
-                for (int y = 0; y < field.getSIZE(); y++) {
-                    for (int x = 0; x < field.getSIZE(); x++) {
-                        if (isSet(new Point(x, y), humanPlayer.getFigure())) {
-                            for (int y1 = y - 1; y1 < y + field.getSIZE(); y1++) {
-                                for (int x1 = x - 1; x1 < x + field.getSIZE(); x1++) {
-                                    if (!((y == y1) && (x == x1))) {
-                                        if (isSet(new Point(x1, y1), humanPlayer.getFigure())) {
-                                            System.out.println("LOL");
-                                            // blocking continuation forward
-                                            if (isSet(new Point(x * 2 - x1, y * 2 - y1), Figure.EMPTY)) {
-                                                field.setFigure(new Point((x * 2 - x1), (y * 2 - y1)), player.getFigure());
-                                            }
-                                            // blocking continuation back
-                                            if (isSet(new Point(x1 * 2 - x, y1 * 2 - y), Figure.EMPTY)) {
-                                                field.setFigure(new Point((x * 2 - x1), (y * 2 - y1)), player.getFigure());
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
                     }
                 }
                 break;

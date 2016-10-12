@@ -35,7 +35,7 @@ public class GameController {
         while (!isFieldFull()) {
 
             Point point = view.getAMove();
-            if (moveController.isSet(point, player.getFigure())) continue;
+            if (!moveController.isSet(point, Figure.EMPTY)) continue;
             moveController.move(player, point);
             view.printField();
 
