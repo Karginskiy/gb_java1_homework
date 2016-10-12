@@ -88,14 +88,10 @@ class MoveController {
             int counterHor = 0;
             int counterVert = 0;
             for (int j = 0; j < field.getSIZE(); j++) {
-
                 if (isSet(new Point(i, j), figure)) counterHor++;
                 if (isSet(new Point(j, i), figure)) counterVert++;
-
             }
-
             if (counterHor >= winSeries || counterVert >= winSeries) return true;
-
         }
 
         return false;
@@ -106,12 +102,10 @@ class MoveController {
 
         int countLeftToRightDiag = 0;
         int countRightToLeftDiag = 0;
-
         for (int i = 0, k = field.getSIZE() - 1; i < field.getSIZE(); i++, k--) {
             if (isSet(new Point(i, i), figure)) countLeftToRightDiag++;
             if (isSet(new Point(i, k), figure)) countRightToLeftDiag++;
         }
-
         return countLeftToRightDiag >= winSeries || countRightToLeftDiag >= winSeries;
 
     }
