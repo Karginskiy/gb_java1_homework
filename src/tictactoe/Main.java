@@ -14,7 +14,7 @@ public class Main {
         // This will be the start of the game.
         HumanPlayer player = new HumanPlayer("Nikita", Figure.X);
         AIPlayer aiPlayer = new AIPlayer(Difficulty.HARD, Figure.O);
-        int FIELD_SIZE = 4;
+        int FIELD_SIZE = 5;
         int WIN_SERIES = 4;
         GameController gameController = new GameController(player, aiPlayer, FIELD_SIZE, WIN_SERIES);
         gameController.start();
