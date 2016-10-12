@@ -39,27 +39,29 @@ public class GameController {
             Point point = view.getAMove();
             if (!moveController.isSet(point, Figure.EMPTY)) continue;
             moveController.move(player, point);
+            view.printTurnPlayerName(player);
             view.printField();
 
             if (moveController.checkForWinner(player)) {
-                view.getStream().println("Nice! You won!");
+                view.printWinner(player);
                 System.exit(0);
             }
 
-            view.getStream().println();
+            System.lineSeparator();
+            view.printTurnPlayerName(aiPlayer);
 
             if (!isFieldFull()) {
                 moveController.move(aiPlayer, player);
                 view.printField();
                 if (moveController.checkForWinner(aiPlayer)) {
-                    view.getStream().println("Sorry.. You've lost..");
+                    view.printWinner(aiPlayer);
                     System.exit(0);
                 }
             }
 
         }
 
-        view.getStream().println("It's draw!");
+        view.printWinner(null);
 
 
     }
