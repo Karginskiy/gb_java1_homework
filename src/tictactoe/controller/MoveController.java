@@ -11,9 +11,11 @@ import java.util.Random;
 class MoveController {
 
     private Field field;
+    private int winSeries;
 
-    MoveController(Field field) {
+    MoveController(Field field, int winSeries) {
         this.field = field;
+        this.winSeries = winSeries;
     }
 
     void move(AIPlayer player, HumanPlayer humanPlayer) {
@@ -68,13 +70,8 @@ class MoveController {
 
         Figure[][] arr = field.getFigures();
         Figure cur = player.getFigure();
-        for (int i = 0; i < field.getSIZE(); i++) {
-            if (arr[i][0] == cur && arr[i][1] == cur && arr[i][2] == cur) return true;
-            if (arr[0][i] == cur && arr[1][i] == cur && arr[2][i] == cur) return true;
-        }
-
-        return arr[0][0] == cur && arr[1][1] == cur && arr[2][2] ==
-                cur || arr[2][0] == cur && arr[1][1] == cur && arr[0][2] == cur;
+        return checkHorizAndVertWins(winSeries, cur)
+                || checkHorizAndVertWins(winSeries, cur);
 
     }
 
@@ -83,6 +80,40 @@ class MoveController {
         int y = point.getY();
         return !(x < 0 || y < 0 || x > (field.getSIZE() - 1)
                 || y > (field.getSIZE() - 1)) && field.getFigures()[x][y] == figure;
+    }
+
+    boolean checkHorizAndVertWins(int winSeries, Figure figure) {
+
+        for (int i = 0; i < field.getSIZE(); i++) {
+            int counterHor = 0;
+            int counterVert = 0;
+            for (int j = 0; j < field.getSIZE(); j++) {
+
+                if (isSet(new Point(i, j), figure)) counterHor++;
+                if (isSet(new Point(j, i), figure)) counterVert++;
+
+            }
+
+            if (counterHor >= winSeries || counterVert >= winSeries) return true;
+
+        }
+
+        return false;
+
+    }
+
+    boolean checkForDiagonWin(int winSeries, Figure figure) {
+
+        int countLeftToRightDiag = 0;
+        int countRightToLeftDiag = 0;
+
+        for (int i = 0, k = field.getSIZE() - 1; i < field.getSIZE(); i++, k--) {
+            if (isSet(new Point(i, i), figure)) countLeftToRightDiag++;
+            if (isSet(new Point(i, k), figure)) countRightToLeftDiag++;
+        }
+
+        return countLeftToRightDiag >= winSeries || countRightToLeftDiag >= winSeries;
+
     }
 
 
