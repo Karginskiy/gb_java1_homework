@@ -14,19 +14,21 @@ public class GameController {
     private AIPlayer aiPlayer;
     private int size;
     private Field field;
+    private int winSeries;
 
-    public GameController(HumanPlayer player, AIPlayer aiPlayer, int fieldSize)
+    public GameController(HumanPlayer player, AIPlayer aiPlayer, int fieldSize, int winSeries)
     {
         this.player = player;
         this.aiPlayer = aiPlayer;
         this.size = fieldSize;
+        this.winSeries = winSeries;
     }
 
     public void start() {
 
         this.field = new Field(size);
         Game currentGame = new Game(field, aiPlayer, player);
-        MoveController moveController = new MoveController(field);
+        MoveController moveController = new MoveController(field, winSeries);
         ConsoleView view = new ConsoleView(currentGame);
 
         view.printHello();
