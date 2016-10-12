@@ -82,7 +82,19 @@ class MoveController {
                 || y > (field.getSIZE() - 1)) && field.getFigures()[x][y] == figure;
     }
 
-    boolean checkHorizAndVertWins(int winSeries, Figure figure) {
+    private boolean checkForDiagonWin(int winSeries, Figure figure) {
+
+        int countLeftToRightDiag = 0;
+        int countRightToLeftDiag = 0;
+        for (int i = 0, k = field.getSIZE() - 1; i < field.getSIZE(); i++, k--) {
+            if (isSet(new Point(i, i), figure)) countLeftToRightDiag++;
+            if (isSet(new Point(i, k), figure)) countRightToLeftDiag++;
+        }
+        return countLeftToRightDiag >= winSeries || countRightToLeftDiag >= winSeries;
+
+    }
+
+    private boolean checkHorizAndVertWins(int winSeries, Figure figure) {
 
         for (int i = 0; i < field.getSIZE(); i++) {
             int counterHor = 0;
@@ -95,18 +107,6 @@ class MoveController {
         }
 
         return false;
-
-    }
-
-    boolean checkForDiagonWin(int winSeries, Figure figure) {
-
-        int countLeftToRightDiag = 0;
-        int countRightToLeftDiag = 0;
-        for (int i = 0, k = field.getSIZE() - 1; i < field.getSIZE(); i++, k--) {
-            if (isSet(new Point(i, i), figure)) countLeftToRightDiag++;
-            if (isSet(new Point(i, k), figure)) countRightToLeftDiag++;
-        }
-        return countLeftToRightDiag >= winSeries || countRightToLeftDiag >= winSeries;
 
     }
 
