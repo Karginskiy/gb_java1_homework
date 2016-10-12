@@ -13,9 +13,9 @@ public class Main {
         // Entry point
         // This will be the start of the game.
         HumanPlayer player = new HumanPlayer("Nikita", Figure.X);
-        AIPlayer aiPlayer = new AIPlayer(Difficulty.HARD, Figure.O);
-        int FIELD_SIZE = 5;
-        int WIN_SERIES = 4;
+        AIPlayer aiPlayer = new AIPlayer(Difficulty.EASY, Figure.O);
+        int FIELD_SIZE = 3;
+        int WIN_SERIES = 3;
         GameController gameController = new GameController(player, aiPlayer, FIELD_SIZE, WIN_SERIES);
         gameController.start();
 
