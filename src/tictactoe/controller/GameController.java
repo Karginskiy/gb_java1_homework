@@ -4,33 +4,22 @@ import tictactoe.model.Field;
 import tictactoe.model.Game;
 import tictactoe.model.Point;
 import tictactoe.model.enums.Figure;
-import tictactoe.model.players.AIPlayer;
-import tictactoe.model.players.HumanPlayer;
 import tictactoe.view.ConsoleView;
 
 public class GameController {
 
-    private HumanPlayer player;
-    private AIPlayer aiPlayer;
-    private int size;
-    private Field field;
-    private int winSeries;
+    private Game game;
 
-    public GameController(HumanPlayer player, AIPlayer aiPlayer, int fieldSize, int winSeries)
+    public GameController(Game game)
     {
-        this.player = player;
-        this.aiPlayer = aiPlayer;
-        this.size = fieldSize;
-        this.winSeries = winSeries;
+        this.game = game;
     }
 
     public void start() {
 
-        this.field = new Field(size);
-        Game currentGame = new Game(field, aiPlayer, player, winSeries);
-        HumanMoveController humanMoveController = new HumanMoveController(currentGame);
-        AIMoveController aiMoveController = new AIMoveController(currentGame);
-        ConsoleView view = new ConsoleView(currentGame);
+        HumanMoveController humanMoveController = new HumanMoveController(game);
+        AIMoveController aiMoveController = new AIMoveController(game);
+        ConsoleView view = new ConsoleView(game);
 
         view.printHello();
         view.printField();
@@ -40,22 +29,27 @@ public class GameController {
             Point point = view.getAMove();
             if (!humanMoveController.isSet(point, Figure.EMPTY)) continue;
             humanMoveController.move(point);
-            view.printTurnPlayerName(player);
+            view.printTurnPlayerName(game.getHumanPlayer());
             view.printField();
 
             if (humanMoveController.checkForWinner()) {
-                view.printWinner(player);
+                view.printWinner(game.getHumanPlayer());
+                System.exit(0);
+            }
+
+            if (isFieldFull()) {
+                view.printWinner(null);
                 System.exit(0);
             }
 
             System.lineSeparator();
-            view.printTurnPlayerName(aiPlayer);
+            view.printTurnPlayerName(game.getAiPlayer());
 
             if (!isFieldFull()) {
                 aiMoveController.move();
                 view.printField();
                 if (aiMoveController.checkForWinner()) {
-                    view.printWinner(aiPlayer);
+                    view.printWinner(game.getAiPlayer());
                     System.exit(0);
                 }
             }
@@ -70,7 +64,7 @@ public class GameController {
     private boolean isFieldFull() {
         for (int y = 0; y < Field.SIZE; y++) {
             for (int x = 0; x < Field.SIZE; x++) {
-                if (field.getFigures()[x][y] == Figure.EMPTY)
+                if (game.getField().getFigures()[x][y] == Figure.EMPTY)
                     return false;
             }
         }
