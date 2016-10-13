@@ -10,7 +10,7 @@ public class Game {
     private HumanPlayer humanPlayer;
     private AIPlayer aiPlayer;
 
-    public Game(Field field, AIPlayer aiPlayer, HumanPlayer humanPlayer, int WIN_SERIES) {
+    public Game(Field field, int WIN_SERIES, AIPlayer aiPlayer, HumanPlayer humanPlayer) {
         this.field = field;
         this.aiPlayer = aiPlayer;
         this.humanPlayer = humanPlayer;
