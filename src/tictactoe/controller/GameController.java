@@ -27,8 +27,9 @@ public class GameController {
     public void start() {
 
         this.field = new Field(size);
-        Game currentGame = new Game(field, aiPlayer, player);
-        MoveController moveController = new MoveController(field, winSeries);
+        Game currentGame = new Game(field, aiPlayer, player, winSeries);
+        HumanMoveController humanMoveController = new HumanMoveController(currentGame);
+        AIMoveController aiMoveController = new AIMoveController(currentGame);
         ConsoleView view = new ConsoleView(currentGame);
 
         view.printHello();
@@ -37,12 +38,12 @@ public class GameController {
         while (!isFieldFull()) {
 
             Point point = view.getAMove();
-            if (!moveController.isSet(point, Figure.EMPTY)) continue;
-            moveController.move(player, point);
+            if (!humanMoveController.isSet(point, Figure.EMPTY)) continue;
+            humanMoveController.move(point);
             view.printTurnPlayerName(player);
             view.printField();
 
-            if (moveController.checkForWinner(player)) {
+            if (humanMoveController.checkForWinner()) {
                 view.printWinner(player);
                 System.exit(0);
             }
@@ -51,9 +52,9 @@ public class GameController {
             view.printTurnPlayerName(aiPlayer);
 
             if (!isFieldFull()) {
-                moveController.move(aiPlayer, player);
+                aiMoveController.move();
                 view.printField();
-                if (moveController.checkForWinner(aiPlayer)) {
+                if (aiMoveController.checkForWinner()) {
                     view.printWinner(aiPlayer);
                     System.exit(0);
                 }
@@ -67,8 +68,8 @@ public class GameController {
     }
 
     private boolean isFieldFull() {
-        for (int y = 0; y < field.getSIZE(); y++) {
-            for (int x = 0; x < field.getSIZE(); x++) {
+        for (int y = 0; y < Field.SIZE; y++) {
+            for (int x = 0; x < Field.SIZE; x++) {
                 if (field.getFigures()[x][y] == Figure.EMPTY)
                     return false;
             }
