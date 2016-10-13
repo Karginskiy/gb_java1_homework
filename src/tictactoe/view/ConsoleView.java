@@ -1,5 +1,6 @@
 package tictactoe.view;
 
+import tictactoe.model.Field;
 import tictactoe.model.Point;
 import tictactoe.model.enums.Figure;
 import tictactoe.model.Game;
@@ -27,7 +28,7 @@ public class ConsoleView {
     public void printField() {
         for (Figure[] value : currentGame.getField().getFigures()) {
             for (int i = 0; i < value.length; i++) {
-                stream.print((i != (currentGame.getField().getSIZE()) - 1) ?
+                stream.print((i != (Field.SIZE) - 1) ?
                         value[i].getValue() + "|" : value[i].getValue());
             }
             stream.println();
