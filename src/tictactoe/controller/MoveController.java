@@ -27,18 +27,16 @@ class MoveController {
                 for (int y = 0; y < field.getSIZE(); y++) {
                     for (int x = 0; x < field.getSIZE(); x++) {
                         if (isSet(new Point(x, y), humanPlayer.getFigure())) {
-                            for (int y1 = y; y1 < y + field.getSIZE(); y1++) {
-                                for (int x1 = x; x1 < x + field.getSIZE(); x1++) {
-                                    if (!((y == y1) && (x == x1))) {
-                                        if (isSet(new Point(x1, y1), humanPlayer.getFigure())) {
-                                            // blocking continuation forward
-                                            if (isSet(new Point(x * 2 - x1, y * 2 - y1), Figure.EMPTY)) {
-                                                field.setFigure(new Point((x * 2 - x1), (y * 2 - y1)), player.getFigure());
+                            for (int y_found = y; y_found < y + field.getSIZE(); y_found++) {
+                                for (int x_found = x; x_found < x + field.getSIZE(); x_found++) {
+                                    if (!((y == y_found) && (x == x_found))) {
+                                        if (isSet(new Point(x_found, y_found), humanPlayer.getFigure())) {
+                                            if (isSet(new Point(x * 2 - x_found, y * 2 - y_found), Figure.EMPTY)) {
+                                                field.setFigure(new Point((x * 2 - x_found), (y * 2 - y_found)), player.getFigure());
                                                 return;
                                             }
-                                            // blocking continuation back
-                                            if (isSet(new Point(x1 * 2 - x, y1 * 2 - y), Figure.EMPTY)) {
-                                                field.setFigure(new Point((x1 * 2 - x), (y1 * 2 - y)), player.getFigure());
+                                            if (isSet(new Point(x_found * 2 - x, y_found * 2 - y), Figure.EMPTY)) {
+                                                field.setFigure(new Point((x_found * 2 - x), (y_found * 2 - y)), player.getFigure());
                                                 return;
                                             }
                                         }
@@ -70,8 +68,7 @@ class MoveController {
 
         Figure[][] arr = field.getFigures();
         Figure cur = player.getFigure();
-        return checkHorizAndVertWins(winSeries, cur)
-                || checkHorizAndVertWins(winSeries, cur);
+        return checkHorizAndVertWins(winSeries, cur) || checkForDiagonWin(winSeries, cur);
 
     }
 
@@ -109,6 +106,5 @@ class MoveController {
         return false;
 
     }
-
 
 }
