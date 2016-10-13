@@ -1,22 +1,17 @@
 package tictactoe.view;
 
 import tictactoe.model.Field;
+import tictactoe.model.Game;
 import tictactoe.model.Point;
 import tictactoe.model.enums.Figure;
-import tictactoe.model.Game;
 import tictactoe.model.players.AIPlayer;
 import tictactoe.model.players.AbstractPlayer;
 import tictactoe.model.players.HumanPlayer;
 
 import java.io.PrintStream;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ConsoleView {
-
-    public PrintStream getStream() {
-        return stream;
-    }
 
     private PrintStream stream = System.out;
     private Game currentGame;
