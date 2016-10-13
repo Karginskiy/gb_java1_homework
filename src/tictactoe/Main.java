@@ -10,8 +10,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // Entry point
-        // This will be the start of the game.
         HumanPlayer player = new HumanPlayer("Nikita", Figure.X);
         AIPlayer aiPlayer = new AIPlayer(Difficulty.HARD, Figure.O);
         int FIELD_SIZE = 3;
