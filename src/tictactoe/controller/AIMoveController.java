@@ -25,7 +25,7 @@ class AIMoveController extends AbstractMoveController {
             case HARD:
                 for (int y = 0; y < Field.SIZE; y++) {
                     for (int x = 0; x < Field.SIZE; x++) {
-                        if (isSet(new Point(x, y), aiPlayer.getFigure())) {
+                        if (isSet(new Point(x, y), anotherFigure(aiPlayer.getFigure()))) {
                             for (int y_found = y; y_found < y + Field.SIZE; y_found++) {
                                 for (int x_found = x; x_found < x + Field.SIZE; x_found++) {
                                     if (!((y == y_found) && (x == x_found))) {
