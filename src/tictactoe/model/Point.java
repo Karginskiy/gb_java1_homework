@@ -18,11 +18,4 @@ public class Point {
         return x;
     }
 
-    public int[] getBothCoordinates() {
-        return new int[] {x, y};
-    }
-
-    public boolean equals(Point point) {
-        return (this.x == point.getX()) && (this.y == point.getY());
-    }
 }
