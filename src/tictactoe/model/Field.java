@@ -4,8 +4,8 @@ import tictactoe.model.enums.Figure;
 
 public class Field {
 
-    private Figure[][] figures;
-    private final int SIZE;
+    private static Figure[][] figures;
+    public static int SIZE;
 
     public Field(int size) {
         SIZE = size;
@@ -19,10 +19,6 @@ public class Field {
 
     public void setFigure(Point point, Figure figure) {
         figures[point.getX()][point.getY()] = figure;
-    }
-
-    public int getSIZE() {
-        return SIZE;
     }
 
     private void initField() {
