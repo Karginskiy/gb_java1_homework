@@ -41,8 +41,7 @@ public class ConsoleView {
             try {
                 final Scanner sc = new Scanner(System.in);
                 stream.println("Make a move! Coordinates x, y");
-                Point point = new Point(sc.nextInt(), sc.nextInt());
-                return point;
+                return new Point(sc.nextInt(), sc.nextInt());
             } catch (Exception e) {
                 stream.println("Wrong coordinate!");
             }
