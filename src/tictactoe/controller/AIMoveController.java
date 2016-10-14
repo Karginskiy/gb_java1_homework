@@ -23,12 +23,12 @@ class AIMoveController extends AbstractMoveController {
 
         switch (aiPlayer.getDifficulty()) {
             case HARD:
-                Point point = getToWinCoordinate(field);
+                Point point = getToWinCoordinate(aiPlayer.getFigure());
                 if (point != null) {
                     field.setFigure(point, aiPlayer.getFigure());
                     return;
                 }
-                point = getBlockingCoordinate(field);
+                point = getToWinCoordinate(anotherFigure(aiPlayer.getFigure()));
                 if (point != null) {
                     field.setFigure(point, aiPlayer.getFigure());
                     return;
@@ -62,38 +62,11 @@ class AIMoveController extends AbstractMoveController {
         return null;
     }
 
-    private Point getBlockingCoordinate(final Field field) {
-
-        for (int y = 0; y < Field.SIZE; y++) {
-            for (int x = 0; x < Field.SIZE; x++) {
-                if (isSet(new Point(x, y), anotherFigure(aiPlayer.getFigure()))) {
-                    for (int y_found = y; y_found < y + Field.SIZE; y_found++) {
-                        for (int x_found = x; x_found < x + Field.SIZE; x_found++) {
-                            if (!((y == y_found) && (x == x_found))) {
-                                if (isSet(new Point(x_found, y_found), anotherFigure(aiPlayer.getFigure()))) {
-                                    if (isSet(new Point(x * 2 - x_found, y * 2 - y_found), Figure.EMPTY)) {
-                                        return new Point((x * 2 - x_found), (y * 2 - y_found));
-                                    }
-                                    if (isSet(new Point(x_found * 2 - x, y_found * 2 - y), Figure.EMPTY)) {
-                                        return new Point((x_found * 2 - x), (y_found * 2 - y));
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        return null;
-
-    }
-
-    private Point getToWinCoordinate(final Field field) {
+    private Point getToWinCoordinate(Figure figure) {
 
         // BEGIN (write your solution here)
         for (int i = 0; i < Field.SIZE; i++) {
-            int index = checkHorizontalsForWinSituations(field, i);
+            int index = checkHorizontalsForWinSituations(i, figure);
             if (index != -1) {
                 for (int j = 0; j < Field.SIZE; j++) {
                     if (isSet(new Point(index, j), Figure.EMPTY)) {
@@ -101,7 +74,7 @@ class AIMoveController extends AbstractMoveController {
                     }
                 }
             }
-            index = checkVerticalsForWinSituations(field, i);
+            index = checkVerticalsForWinSituations(i, figure);
             if (index != -1) {
                 for (int j = 0; j < Field.SIZE; j++) {
                     if (isSet(new Point(j, index), Figure.EMPTY)) {
@@ -109,7 +82,7 @@ class AIMoveController extends AbstractMoveController {
                     }
                 }
             }
-            index = checkDiagonalsForWinSituations(field, i);
+            index = checkDiagonalsForWinSituations(i, figure);
             if (index == 1) {
                 for (int j = 0; j < Field.SIZE; j++) {
                     if (isSet(new Point(j, j), Figure.EMPTY)) {
@@ -130,12 +103,12 @@ class AIMoveController extends AbstractMoveController {
         // END
     }
 
-    private int checkHorizontalsForWinSituations(Field field, int indexOfLine) {
+    private int checkHorizontalsForWinSituations(int indexOfLine, Figure figure) {
 
         int counter = 0;
         for (int j = 0; j < Field.SIZE; j++) {
 
-            if (isSet(new Point(indexOfLine, j), aiPlayer.getFigure())) {
+            if (isSet(new Point(indexOfLine, j), figure)) {
                 counter++;
             }
             if (counter > 1) {
@@ -147,11 +120,11 @@ class AIMoveController extends AbstractMoveController {
 
     }
 
-    private int checkVerticalsForWinSituations(Field field, int indexOfLine) {
+    private int checkVerticalsForWinSituations(int indexOfLine, Figure figure) {
 
         int counter = 0;
         for (int j = 0; j < Field.SIZE; j++) {
-            if (isSet(new Point(j, indexOfLine), aiPlayer.getFigure())) {
+            if (isSet(new Point(j, indexOfLine), figure)) {
                 counter++;
             }
         }
@@ -164,18 +137,18 @@ class AIMoveController extends AbstractMoveController {
 
     }
 
-    private int checkDiagonalsForWinSituations(Field field, int indexOfDiagonal) {
+    private int checkDiagonalsForWinSituations(int indexOfDiagonal, Figure figure) {
 
         int counter = 0;
         if (indexOfDiagonal == 1) {
             for (int i = 0; i < Field.SIZE; i++) {
-                if (isSet(new Point(i, i), aiPlayer.getFigure())) {
+                if (isSet(new Point(i, i), figure)) {
                     counter++;
                 }
             }
         } else if (indexOfDiagonal == 2) {
             for (int i = 0, k = Field.SIZE - 1; i < Field.SIZE; i++, k--) {
-                if (isSet(new Point(i, k), Figure.X)) {
+                if (isSet(new Point(i, k), figure)) {
                     counter++;
                 }
             }
