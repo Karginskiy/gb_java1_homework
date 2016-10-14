@@ -17,3 +17,4 @@ enum Figure {
 }
 
 // What result will shown?
+// x x 1 1. But why? :)
