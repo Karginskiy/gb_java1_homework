@@ -17,6 +17,10 @@ public class GameController {
 
     public void start() {
 
+        /**
+         * TODO Need to make random first move;
+         */
+
         HumanMoveController humanMoveController = new HumanMoveController(game);
         AIMoveController aiMoveController = new AIMoveController(game);
         ConsoleView view = new ConsoleView(game);
