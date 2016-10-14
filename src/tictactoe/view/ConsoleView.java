@@ -11,7 +11,7 @@ import tictactoe.model.players.HumanPlayer;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-public class ConsoleView {
+public class ConsoleView implements IView {
 
     private PrintStream stream = System.out;
     private Game currentGame;
