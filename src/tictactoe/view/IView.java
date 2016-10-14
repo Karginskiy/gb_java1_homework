@@ -1,6 +1,7 @@
 package tictactoe.view;
 
-public class IView {
+interface IView {
+
 
 
 }
