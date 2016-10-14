@@ -19,11 +19,22 @@ class AIMoveController extends AbstractMoveController {
 
     void move() {
 
+        Random rd = new Random();
+
         Point point = getToWinCoordinate(field);
         if (point != null) {
             field.setFigure(point, aiPlayer.getFigure());
+            return;
         }
         point = getBlockingCoordinate(field);
+        if (point != null) {
+            field.setFigure(point, aiPlayer.getFigure());
+            return;
+        }
+
+        field.setFigure(new Point(rd.nextInt(Field.SIZE), rd.nextInt(Field.SIZE)),
+                        aiPlayer.getFigure());
+
 
     }
 
@@ -46,6 +57,26 @@ class AIMoveController extends AbstractMoveController {
 
     private Point getBlockingCoordinate(final Field field) {
 
+        for (int y = 0; y < Field.SIZE; y++) {
+            for (int x = 0; x < Field.SIZE; x++) {
+                if (isSet(new Point(x, y), anotherFigure(aiPlayer.getFigure()))) {
+                    for (int y_found = y; y_found < y + Field.SIZE; y_found++) {
+                        for (int x_found = x; x_found < x + Field.SIZE; x_found++) {
+                            if (!((y == y_found) && (x == x_found))) {
+                                if (isSet(new Point(x_found, y_found), anotherFigure(aiPlayer.getFigure()))) {
+                                    if (isSet(new Point(x * 2 - x_found, y * 2 - y_found), Figure.EMPTY)) {
+                                        return new Point((x * 2 - x_found), (y * 2 - y_found));
+                                    }
+                                    if (isSet(new Point(x_found * 2 - x, y_found * 2 - y), Figure.EMPTY)) {
+                                        return new Point((x_found * 2 - x), (y_found * 2 - y));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         return null;
 
