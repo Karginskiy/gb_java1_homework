@@ -21,21 +21,28 @@ class AIMoveController extends AbstractMoveController {
 
         Random rd = new Random();
 
-        Point point = getToWinCoordinate(field);
-        if (point != null) {
-            field.setFigure(point, aiPlayer.getFigure());
-            return;
+        switch (aiPlayer.getDifficulty()) {
+            case HARD:
+                Point point = getToWinCoordinate(field);
+                if (point != null) {
+                    field.setFigure(point, aiPlayer.getFigure());
+                    return;
+                }
+                point = getBlockingCoordinate(field);
+                if (point != null) {
+                    field.setFigure(point, aiPlayer.getFigure());
+                    return;
+                }
+            case EASY:
+                while (true) {
+                    point = new Point(rd.nextInt(Field.SIZE), rd.nextInt(Field.SIZE));
+                    if (isSet(point, Figure.EMPTY)) {
+                        field.setFigure(point, aiPlayer.getFigure());
+                        break;
+                    }
+                }
+                break;
         }
-        point = getBlockingCoordinate(field);
-        if (point != null) {
-            field.setFigure(point, aiPlayer.getFigure());
-            return;
-        }
-
-        field.setFigure(new Point(rd.nextInt(Field.SIZE), rd.nextInt(Field.SIZE)),
-                        aiPlayer.getFigure());
-
-
     }
 
     boolean checkForWinner() {
