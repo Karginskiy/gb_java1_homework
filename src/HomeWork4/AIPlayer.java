@@ -1,6 +1,8 @@
+package HomeWork4;
+
 import java.util.Random;
 
-public class AIPlayer {
+class AIPlayer {
 
     private String figure;
 
