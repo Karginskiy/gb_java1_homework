@@ -1,8 +1,9 @@
 package tictactoe.controller;
 
-import tictactoe.model.*;
+import tictactoe.model.Field;
+import tictactoe.model.Game;
+import tictactoe.model.Point;
 import tictactoe.model.enums.Figure;
-import tictactoe.model.players.AbstractPlayer;
 
 abstract class AbstractMoveController {
 
