@@ -14,6 +14,7 @@ public class AIPlayer {
 
     void move() {
 
+        System.out.println("AI's turn!");
         Random rd = new Random();
 
         int[] point = getToWinCoordinate(getFigure());
