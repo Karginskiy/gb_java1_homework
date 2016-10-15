@@ -12,7 +12,6 @@ import java.util.Scanner;
  */
 
 public class SimpleTicTacToe {
-
     public static void main(String[] args) {
         start();
     }
