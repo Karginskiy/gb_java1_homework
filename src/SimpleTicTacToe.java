@@ -128,6 +128,7 @@ class Human {
 
     void move() {
 
+        System.out.println("Your turn!");
         Scanner scanner = new Scanner(System.in);
         while (true) {
             int x, y;
