@@ -14,14 +14,14 @@ import java.util.Scanner;
 public class ConsoleView implements IView {
 
     private PrintStream stream = System.out;
-    private Game currentGame;
+    private Game game;
 
     public ConsoleView(Game game) {
-        currentGame = game;
+        this.game = game;
     }
 
     public void printField() {
-        for (Figure[] value : currentGame.getField().getFigures()) {
+        for (Figure[] value : game.getField().getFigures()) {
             for (int i = 0; i < value.length; i++) {
                 stream.print((i != (Field.SIZE) - 1) ?
                         value[i].getValue() + "|" : value[i].getValue());
@@ -31,7 +31,7 @@ public class ConsoleView implements IView {
     }
 
     public void printHello() {
-        stream.printf("Hello, %s!" + "\n", currentGame.getHumanPlayer().getName());
+        stream.printf("Hello, %s!" + "\n", game.getHumanPlayer().getName());
         stream.println("Let's play!");
     }
 
@@ -41,7 +41,10 @@ public class ConsoleView implements IView {
             try {
                 final Scanner sc = new Scanner(System.in);
                 stream.println("Make a move! Coordinates x, y");
-                return new Point(sc.nextInt(), sc.nextInt());
+                Point point = new Point(sc.nextInt(), sc.nextInt());
+                if (game.isSet(point, Figure.EMPTY)) {
+                    return point;
+                }
             } catch (Exception e) {
                 stream.println("Wrong coordinate!");
             }

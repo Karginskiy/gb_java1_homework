@@ -5,19 +5,24 @@ import tictactoe.model.Game;
 import tictactoe.model.Point;
 import tictactoe.model.enums.Figure;
 import tictactoe.model.players.AIPlayer;
+import tictactoe.view.IView;
 
 import java.util.Random;
 
 class AIMoveController extends AbstractMoveController {
 
     private final AIPlayer aiPlayer;
+    private final IView view;
 
-    AIMoveController(Game game) {
+    AIMoveController(Game game, IView view) {
         super(game);
         this.aiPlayer = game.getAiPlayer();
+        this.view = view;
     }
 
-    void move() {
+    public void move() {
+
+        view.printTurnPlayerName(game.getAiPlayer());
 
         Random rd = new Random();
 
@@ -25,24 +30,30 @@ class AIMoveController extends AbstractMoveController {
             case HARD:
                 Point point = getToWinCoordinate(aiPlayer.getFigure());
                 if (point != null) {
-                    field.setFigure(point, aiPlayer.getFigure());
+                    game.getField().setFigure(point, aiPlayer.getFigure());
                     return;
                 }
                 point = getToWinCoordinate(anotherFigure(aiPlayer.getFigure()));
                 if (point != null) {
-                    field.setFigure(point, aiPlayer.getFigure());
+                    game.getField().setFigure(point, aiPlayer.getFigure());
                     return;
                 }
             case EASY:
                 while (true) {
                     point = new Point(rd.nextInt(Field.SIZE), rd.nextInt(Field.SIZE));
-                    if (isSet(point, Figure.EMPTY)) {
-                        field.setFigure(point, aiPlayer.getFigure());
+                    if (game.isSet(point, Figure.EMPTY)) {
+                        game.getField().setFigure(point, aiPlayer.getFigure());
                         break;
                     }
                 }
                 break;
         }
+
+        if (checkForWinner()) {
+            view.printWinner(game.getHumanPlayer());
+            System.exit(0);
+        }
+
     }
 
     boolean checkForWinner() {
@@ -69,7 +80,7 @@ class AIMoveController extends AbstractMoveController {
             int index = checkHorizontalsForWinSituations(i, figure);
             if (index != -1) {
                 for (int j = 0; j < Field.SIZE; j++) {
-                    if (isSet(new Point(index, j), Figure.EMPTY)) {
+                    if (game.isSet(new Point(index, j), Figure.EMPTY)) {
                         return new Point(index, j);
                     }
                 }
@@ -77,7 +88,7 @@ class AIMoveController extends AbstractMoveController {
             index = checkVerticalsForWinSituations(i, figure);
             if (index != -1) {
                 for (int j = 0; j < Field.SIZE; j++) {
-                    if (isSet(new Point(j, index), Figure.EMPTY)) {
+                    if (game.isSet(new Point(j, index), Figure.EMPTY)) {
                         return new Point(j, index);
                     }
                 }
@@ -85,13 +96,13 @@ class AIMoveController extends AbstractMoveController {
             index = checkDiagonalsForWinSituations(i, figure);
             if (index == 1) {
                 for (int j = 0; j < Field.SIZE; j++) {
-                    if (isSet(new Point(j, j), Figure.EMPTY)) {
+                    if (game.isSet(new Point(j, j), Figure.EMPTY)) {
                         return new Point(j, j);
                     }
                 }
             } else if (index == 2) {
                 for (int j = 0, k = Field.SIZE - 1; j < Field.SIZE; j++, k--) {
-                    if (isSet(new Point(j, k), Figure.EMPTY)) {
+                    if (game.isSet(new Point(j, k), Figure.EMPTY)) {
                         return new Point(j, k);
                     }
                 }
@@ -108,7 +119,7 @@ class AIMoveController extends AbstractMoveController {
         int counter = 0;
         for (int j = 0; j < Field.SIZE; j++) {
 
-            if (isSet(new Point(indexOfLine, j), figure)) {
+            if (game.isSet(new Point(indexOfLine, j), figure)) {
                 counter++;
             }
             if (counter > 1) {
@@ -124,7 +135,7 @@ class AIMoveController extends AbstractMoveController {
 
         int counter = 0;
         for (int j = 0; j < Field.SIZE; j++) {
-            if (isSet(new Point(j, indexOfLine), figure)) {
+            if (game.isSet(new Point(j, indexOfLine), figure)) {
                 counter++;
             }
         }
@@ -142,13 +153,13 @@ class AIMoveController extends AbstractMoveController {
         int counter = 0;
         if (indexOfDiagonal == 1) {
             for (int i = 0; i < Field.SIZE; i++) {
-                if (isSet(new Point(i, i), figure)) {
+                if (game.isSet(new Point(i, i), figure)) {
                     counter++;
                 }
             }
         } else if (indexOfDiagonal == 2) {
             for (int i = 0, k = Field.SIZE - 1; i < Field.SIZE; i++, k--) {
-                if (isSet(new Point(i, k), figure)) {
+                if (game.isSet(new Point(i, k), figure)) {
                     counter++;
                 }
             }
