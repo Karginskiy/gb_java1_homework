@@ -53,8 +53,8 @@ class AIPlayer {
 
     private void checkAndPrintOut() {
         if (checkForWinner()) {
-
             System.out.println("AI Wins");
+            Field.printField();
             System.exit(0);
         }
     }
@@ -66,8 +66,6 @@ class AIPlayer {
             return "X";
         }
     }
-
-
 
     private int[] getToWinCoordinate(String figure) {
 
