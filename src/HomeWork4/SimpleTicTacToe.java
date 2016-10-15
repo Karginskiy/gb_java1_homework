@@ -130,17 +130,58 @@ class Human {
 
     void move() {
 
-        System.out.println("Your turn!");
+        System.out.printf("Your turn! Coordinates from 1 to %s \n", Field.SIZE);
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            int x, y;
-            x = scanner.nextInt(Field.SIZE);
-            y = scanner.nextInt(Field.SIZE);
-            if (Field.isSet(x, y, " ")) {
-                Field.setFigure(x, y, figure);
-                return;
-            }
+            try {
+                int x, y;
+                x = scanner.nextInt(Field.SIZE + 1) - 1;
+                y = scanner.nextInt(Field.SIZE + 1) - 1;
+                if (Field.isSet(x, y, " ")) {
+                    Field.setFigure(x, y, figure);
+                    if (checkForWinner()) {
+                        System.out.println("You won!");
+                        Field.printField();
+                        System.exit(0);
+                    }
+                    return;
+                }
+            } catch (Exception ignored) {}
         }
+
+    }
+
+    private boolean checkForWinner() {
+
+        return checkHorizAndVertWins(figure) || checkForDiagonWin(figure);
+
+    }
+
+    private boolean checkForDiagonWin(String figure) {
+
+        int countLeftToRightDiag = 0;
+        int countRightToLeftDiag = 0;
+        for (int i = 0, k = Field.SIZE - 1; i < Field.SIZE; i++, k--) {
+            if (Field.isSet(i, i, figure)) countLeftToRightDiag++;
+            if (Field.isSet(i, k, figure)) countRightToLeftDiag++;
+        }
+        return countLeftToRightDiag >= Field.WIN_SERIES || countRightToLeftDiag >= Field.WIN_SERIES;
+
+    }
+
+    private boolean checkHorizAndVertWins(String figure) {
+
+        for (int i = 0; i < Field.SIZE; i++) {
+            int counterHor = 0;
+            int counterVert = 0;
+            for (int j = 0; j < Field.SIZE; j++) {
+                if (Field.isSet(i, j, figure)) counterHor++;
+                if (Field.isSet(j, i, figure)) counterVert++;
+            }
+            if (counterHor >= Field.WIN_SERIES || counterVert >= Field.WIN_SERIES) return true;
+        }
+
+        return false;
 
     }
 
