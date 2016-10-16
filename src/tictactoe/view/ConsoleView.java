@@ -21,13 +21,19 @@ public class ConsoleView implements IView {
     }
 
     public void printField() {
-        for (Figure[] value : game.getField().getFigures()) {
-            for (int i = 0; i < value.length; i++) {
+        System.out.println();
+        for (int j = 0; j < Field.SIZE; j++) {
+            for (int i = 0; i < Field.SIZE; i++) {
                 stream.print((i != (Field.SIZE) - 1) ?
-                        value[i].getValue() + "|" : value[i].getValue());
+                        " " + game.getField().getFigures()[j][i].getValue()
+                            + " |" : " " + game.getField().getFigures()[j][i].getValue());
             }
-            stream.println();
+            if (j != Field.SIZE - 1) {
+                printSeparator();
+            }
         }
+        System.out.println();
+        System.out.println();
     }
 
     public void printHello() {
@@ -41,7 +47,7 @@ public class ConsoleView implements IView {
             try {
                 final Scanner sc = new Scanner(System.in);
                 stream.println("Make a move! Coordinates x, y");
-                Point point = new Point(sc.nextInt(), sc.nextInt());
+                Point point = new Point(sc.nextInt(Field.SIZE + 1) - 1, sc.nextInt(Field.SIZE + 1) - 1);
                 if (game.isSet(point, Figure.EMPTY)) {
                     return point;
                 }
@@ -70,6 +76,18 @@ public class ConsoleView implements IView {
             stream.println(((HumanPlayer) player).getName() + "'s turn");
         }
 
+    }
+
+    private void printSeparator() {
+        StringBuilder builder = new StringBuilder("\n");
+        for (int i = 0; i < Field.SIZE; i++) {
+            if (i != Field.SIZE - 1) {
+                builder.append("~~~~");
+            } else {
+                builder.append("~~~");
+            }
+        }
+        System.out.println(builder.toString());
     }
 
 }
