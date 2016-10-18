@@ -1,6 +1,6 @@
 package Lesson5;
 
-public class Horse extends Animal {
+class Horse extends Animal {
 
     private Speed speed;
 
@@ -11,6 +11,6 @@ public class Horse extends Animal {
 
     @Override
     protected void run() {
-        System.out.println("House runs " + speed);
+        System.out.println(this.getName() + " runs " + speed);
     }
 }
