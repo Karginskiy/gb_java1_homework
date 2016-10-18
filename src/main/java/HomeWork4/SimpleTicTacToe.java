@@ -1,5 +1,7 @@
 package HomeWork4;
 
+import org.openjdk.jmh.annotations.Benchmark;
+
 import java.util.Scanner;
 
 /**
@@ -12,10 +14,10 @@ import java.util.Scanner;
  */
 
 public class SimpleTicTacToe {
+
     public static void main(String[] args) {
         start();
     }
-
 
     private static void start() {
 

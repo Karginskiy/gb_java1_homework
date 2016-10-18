@@ -1,12 +1,15 @@
 package HomeWork4;
 
+import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.State;
+
 import java.util.Random;
 
-class AIPlayer {
+public class AIPlayer {
 
     private String figure;
 
-    AIPlayer(String figure) {
+    public AIPlayer(String figure) {
         this.figure = figure;
     }
 
@@ -14,7 +17,7 @@ class AIPlayer {
         return figure;
     }
 
-    void move() {
+    public void move() {
 
         System.out.println("AI's turn!");
         Random rd = new Random();
