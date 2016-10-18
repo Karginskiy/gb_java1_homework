@@ -1,26 +1,16 @@
 package Lesson5;
 
-public class Horse extends AbstractAnimal {
+public class Horse extends Animal {
 
-    Horse(String name, Speed speed, boolean canSwim, double length) {
-        super(name, speed, canSwim, length);
+    private Speed speed;
+
+    Horse(String name, boolean canSwim, double length, Speed speed) {
+        super(name, canSwim, length);
+        this.speed = speed;
     }
 
     @Override
     protected void run() {
-
+        System.out.println("House runs " + speed);
     }
-
-    @Override
-    protected void swim() {
-
-    }
-
-    @Override
-    protected void leap() {
-
-    }
-
-
-
 }
