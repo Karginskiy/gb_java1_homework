@@ -3,20 +3,16 @@ package Lesson5;
 abstract class AbstractAnimal {
 
     private String name;
-    private Speed speed;
     private boolean canSwim;
     private double length;
 
-    abstract protected void run();
-    abstract protected void swim();
-    abstract protected void leap();
-
-    AbstractAnimal(String name, Speed speed, boolean canSwim, double length) {
+    AbstractAnimal(String name, boolean canSwim, double length) {
         this.name = name;
-        this.speed = speed;
         this.canSwim = canSwim;
         this.length = length;
     }
+
+    abstract protected void run();
 
     public String getName() {
         return name;
@@ -26,20 +22,28 @@ abstract class AbstractAnimal {
         this.name = name;
     }
 
-    public boolean isCanSwim() {
+    protected void swim() {
+        if (this.isCanSwim()) {
+            System.out.println(this.name + " swimming!");
+        } else {
+            System.out.println(this.name + " can't swim. Teach him! :)");
+        }
+    }
+
+    protected void leap() {
+        System.out.println(this.name + " jumps on " + this.getLength() * 1.66);
+    }
+
+    private boolean isCanSwim() {
         return canSwim;
     }
 
-    public double getLength() {
+    private double getLength() {
         return length;
     }
 
-    public Speed getSpeed() {
-        return speed;
-    }
-
     enum Speed {
-        FAST, MIDDLING, SLOW;
+        fast, middling, slow;
     }
 
 }
