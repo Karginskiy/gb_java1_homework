@@ -11,7 +11,7 @@ class Dog extends Animal {
 
     @Override
     protected void run() {
-        System.out.println("Dog runs " + speed);
+        System.out.println(this.getName() + " runs " + speed);
     }
 
 
