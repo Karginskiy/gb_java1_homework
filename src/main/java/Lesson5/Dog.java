@@ -4,9 +4,10 @@ class Dog extends Animal {
 
     private Speed speed;
 
-    Dog(String name, boolean canSwim, double length, Speed speed) {
-        super(name, canSwim, length);
+    Dog(String name, boolean canSwim, double height, Speed speed) {
+        super(name, canSwim, height);
         this.speed = speed;
+        this.jumphigh = height * 1.2;
     }
 
     @Override
