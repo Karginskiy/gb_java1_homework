@@ -1,5 +1,7 @@
 package Lesson5;
 
+import java.util.ArrayList;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -16,6 +18,8 @@ public class Main {
             animal.leap(1);
             animal.leap(1.5);
         }
+
+        ArrayList arrayList = new ArrayList();
 
     }
 
