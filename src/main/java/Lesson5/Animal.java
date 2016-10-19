@@ -4,12 +4,12 @@ abstract class Animal {
 
     private String name;
     private boolean canSwim;
-    private double length;
+    private double height;
 
-    Animal(String name, boolean canSwim, double length) {
+    Animal(String name, boolean canSwim, double height) {
         this.name = name;
         this.canSwim = canSwim;
-        this.length = length;
+        this.height = height;
     }
 
     // Overriding representation
@@ -33,16 +33,20 @@ abstract class Animal {
     }
 
     // Representation of inheritance
-    void leap() {
-        System.out.printf(this.name + " jumps on %.2f\n", this.getLength() * 1.66);
+    void leap(double height) {
+
+        if (this.height > height) {
+            System.out.printf("%s has leaped the obstacle %.2f meters high\n", this.getName(), this.getHeight());
+        }
+
     }
 
     private boolean isCanSwim() {
         return canSwim;
     }
 
-    private double getLength() {
-        return length;
+    private double getHeight() {
+        return height;
     }
 
     enum Speed {
