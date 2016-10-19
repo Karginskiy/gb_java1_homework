@@ -4,9 +4,10 @@ class Cat extends Animal {
 
     private Speed speed;
 
-    Cat(String name, boolean canSwim, double length, Speed speed) {
-        super(name, canSwim, length);
+    Cat(String name, boolean canSwim, double height, Speed speed) {
+        super(name, canSwim, height);
         this.speed = speed;
+        this.jumphigh = height * 6;
     }
 
     @Override
