@@ -2,6 +2,7 @@ package Lesson5;
 
 abstract class Animal {
 
+    protected double jumphigh;
     private String name;
     private boolean canSwim;
     private double height;
@@ -35,8 +36,10 @@ abstract class Animal {
     // Representation of inheritance
     void leap(double height) {
 
-        if (this.height > height) {
-            System.out.printf("%s has leaped the obstacle %.2f meters high\n", this.getName(), this.getHeight());
+        if (this.jumphigh > height) {
+            System.out.printf("%s has leaped the obstacle %.2f meters high\n", this.getName(), height);
+        } else {
+            System.out.printf("%s cannot jump for %.2f meters. Not tall enough.\n", this.name, height);
         }
 
     }
