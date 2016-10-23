@@ -30,13 +30,13 @@ class AIMoveController extends AbstractMoveController {
             case HARD:
                 Point point = getToWinCoordinate(aiPlayer.getFigure());
                 if (point != null) {
-                    game.getField().setFigure(point, aiPlayer.getFigure());
+                    game.getField().setFigure(point, aiPlayer.getFigure(), aiPlayer);
                     checkAndPrintOut();
                     return;
                 }
                 point = getToWinCoordinate(anotherFigure(aiPlayer.getFigure()));
                 if (point != null) {
-                    game.getField().setFigure(point, aiPlayer.getFigure());
+                    game.getField().setFigure(point, aiPlayer.getFigure(), aiPlayer);
                     checkAndPrintOut();
                     return;
                 }
@@ -44,7 +44,7 @@ class AIMoveController extends AbstractMoveController {
                 while (true) {
                     point = new Point(rd.nextInt(Field.SIZE), rd.nextInt(Field.SIZE));
                     if (game.isSet(point, Figure.EMPTY)) {
-                        game.getField().setFigure(point, aiPlayer.getFigure());
+                        game.getField().setFigure(point, aiPlayer.getFigure(), aiPlayer);
                         checkAndPrintOut();
                         break;
                     }
@@ -52,10 +52,7 @@ class AIMoveController extends AbstractMoveController {
                 break;
         }
 
-        if (checkForWinner()) {
-            view.printWinner(game.getAiPlayer());
-            System.exit(0);
-        }
+        checkAndPrintOut();
 
     }
 
@@ -67,6 +64,7 @@ class AIMoveController extends AbstractMoveController {
         if (checkForWinner()) {
             view.printField();
             view.printWinner(aiPlayer);
+            game.cleanFile();
             System.exit(0);
         }
     }
