@@ -3,7 +3,9 @@ package tictactoe.model.players;
 import tictactoe.model.enums.Difficulty;
 import tictactoe.model.enums.Figure;
 
-public class AIPlayer extends AbstractPlayer {
+import java.io.Serializable;
+
+public class AIPlayer extends AbstractPlayer implements Serializable{
 
     private Difficulty difficulty;
 
@@ -15,5 +17,7 @@ public class AIPlayer extends AbstractPlayer {
     public Difficulty getDifficulty() {
         return difficulty;
     }
+
+    public AIPlayer() {}
 
 }
