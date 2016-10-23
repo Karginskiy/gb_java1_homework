@@ -3,8 +3,12 @@ package tictactoe.controller;
 import tictactoe.model.Field;
 import tictactoe.model.Game;
 import tictactoe.model.enums.Figure;
+import tictactoe.model.players.AIPlayer;
+import tictactoe.model.players.AbstractPlayer;
 import tictactoe.view.ConsoleView;
 
+import java.io.*;
+import java.util.Arrays;
 import java.util.Random;
 
 public class GameController {
@@ -23,18 +27,30 @@ public class GameController {
         ConsoleView view = new ConsoleView(game);
         humanMoveController = new HumanMoveController(game, view);
         aiMoveController = new AIMoveController(game, view);
+        AbstractMoveController moveController;
 
-        view.printHello();
-        AbstractMoveController moveController = getRandomStartPlayerController();
+
+        Field field = game.getFieldFromFile();
+
+        if (field != null) {
+            game.setField(field);
+            moveController = getNextPlayerController(field.getLastMoveBy());
+            view.printField();
+        } else {
+            moveController = getRandomStartPlayerController();
+        }
 
         while (!isFieldFull()) {
 
+            view.printHello();
+
             moveController.move();
+            game.saveField();
             view.printField();
 
             if (isFieldFull()) {
                 view.printWinner(null);
-                System.exit(0);
+                break;
             }
 
             moveController = nextPlayerController(moveController);
@@ -43,6 +59,7 @@ public class GameController {
 
             if (!isFieldFull()) {
                 moveController.move();
+                game.saveField();
                 view.printField();
             }
 
@@ -51,6 +68,7 @@ public class GameController {
         }
 
         view.printWinner(null);
+        game.cleanFile();
 
 
     }
@@ -89,6 +107,14 @@ public class GameController {
             return humanMoveController;
         }
 
+    }
+
+    private AbstractMoveController getNextPlayerController(AbstractPlayer player) {
+        if (player instanceof AIPlayer) {
+            return humanMoveController;
+        } else {
+            return aiMoveController;
+        }
     }
 
 
