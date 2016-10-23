@@ -8,6 +8,7 @@ import tictactoe.model.players.AIPlayer;
 import tictactoe.model.players.AbstractPlayer;
 import tictactoe.model.players.HumanPlayer;
 
+import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Scanner;
 
@@ -21,7 +22,7 @@ public class ConsoleView implements IView {
     }
 
     public void printField() {
-        System.out.println();
+        stream.println();
         for (int j = 0; j < Field.SIZE; j++) {
             for (int i = 0; i < Field.SIZE; i++) {
                 stream.print((i != (Field.SIZE) - 1) ?
@@ -32,8 +33,8 @@ public class ConsoleView implements IView {
                 printSeparator();
             }
         }
-        System.out.println();
-        System.out.println();
+        stream.println();
+        stream.println();
     }
 
     public void printHello() {
@@ -62,7 +63,7 @@ public class ConsoleView implements IView {
         if (player instanceof AIPlayer) {
             stream.println("Sorry.. You've lost..");
         } else if (player == null) {
-            System.out.println("It's draw!");
+            stream.println("It's draw!");
         } else {
             stream.printf("You won, %s", ((HumanPlayer) player).getName());
         }
@@ -87,7 +88,7 @@ public class ConsoleView implements IView {
                 builder.append("~~~");
             }
         }
-        System.out.println(builder.toString());
+        stream.println(builder.toString());
     }
 
 }
