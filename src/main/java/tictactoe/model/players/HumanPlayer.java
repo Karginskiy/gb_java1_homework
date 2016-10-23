@@ -2,7 +2,9 @@ package tictactoe.model.players;
 
 import tictactoe.model.enums.Figure;
 
-public class HumanPlayer extends AbstractPlayer {
+import java.io.Serializable;
+
+public class HumanPlayer extends AbstractPlayer implements Serializable {
 
     private String name;
 
@@ -10,6 +12,8 @@ public class HumanPlayer extends AbstractPlayer {
         super(figure);
         this.name = name;
     }
+
+    public HumanPlayer() {}
 
     public String getName() {
         return name;
