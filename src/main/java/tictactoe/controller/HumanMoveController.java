@@ -6,6 +6,8 @@ import tictactoe.model.enums.Figure;
 import tictactoe.model.players.HumanPlayer;
 import tictactoe.view.IView;
 
+import java.io.ObjectOutputStream;
+
 class HumanMoveController extends AbstractMoveController {
 
     private HumanPlayer humanPlayer;
@@ -20,8 +22,9 @@ class HumanMoveController extends AbstractMoveController {
     public void move() {
 
         Point point = view.getAMove();
-        game.getField().setFigure(point, humanPlayer.getFigure());
+        game.getField().setFigure(point, humanPlayer.getFigure(), humanPlayer);
         if (checkForWinner()) {
+            game.cleanFile();
             view.printField();
             view.printWinner(game.getHumanPlayer());
             System.exit(0);
