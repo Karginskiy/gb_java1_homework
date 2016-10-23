@@ -2,7 +2,9 @@ package tictactoe.model.players;
 
 import tictactoe.model.enums.Figure;
 
-public abstract class AbstractPlayer {
+import java.io.Serializable;
+
+public abstract class AbstractPlayer implements Serializable {
 
     private Figure figure;
 
@@ -13,5 +15,7 @@ public abstract class AbstractPlayer {
     AbstractPlayer(Figure figure) {
         this.figure = figure;
     }
+
+    public AbstractPlayer() {}
 
 }
