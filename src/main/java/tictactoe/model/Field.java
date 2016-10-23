@@ -1,11 +1,15 @@
 package tictactoe.model;
 
 import tictactoe.model.enums.Figure;
+import tictactoe.model.players.AbstractPlayer;
 
-public class Field {
+import java.io.Serializable;
 
-    private static Figure[][] figures;
+public class Field implements Serializable {
+
+    private Figure[][] figures;
     public static int SIZE;
+    private AbstractPlayer lastMoveBy;
 
     public Field(int size) {
         SIZE = size;
@@ -13,12 +17,22 @@ public class Field {
         initField();
     }
 
+    @Override
+    public String toString() {
+        return "Field{" +
+                "lastMoveBy=" + lastMoveBy +
+                '}';
+    }
+
+    public Field() {}
+
     public Figure[][] getFigures() {
         return figures;
     }
 
-    public void setFigure(Point point, Figure figure) {
+    public void setFigure(Point point, Figure figure, AbstractPlayer lastMoveBy) {
         figures[point.getX()][point.getY()] = figure;
+        this.lastMoveBy = lastMoveBy;
     }
 
     private void initField() {
@@ -29,4 +43,7 @@ public class Field {
         }
     }
 
+    public AbstractPlayer getLastMoveBy() {
+        return lastMoveBy;
+    }
 }
