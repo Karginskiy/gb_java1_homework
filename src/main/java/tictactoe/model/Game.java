@@ -10,17 +10,21 @@ import java.io.*;
 public class Game {
 
     public static int WIN_SERIES;
-    private final String fileName;
+    private String fileName = null;
     private Field field;
     private HumanPlayer humanPlayer;
     private AIPlayer aiPlayer;
 
     public Game(Field field, int WIN_SERIES, AIPlayer aiPlayer, HumanPlayer humanPlayer, String fileName) {
-        this.field = field;
-        Game.WIN_SERIES = WIN_SERIES;
-        this.aiPlayer = aiPlayer;
-        this.humanPlayer = humanPlayer;
+        this(field, WIN_SERIES, aiPlayer, humanPlayer);
         this.fileName = fileName;
+    }
+
+    public Game(Field field, int WIN_SERIES, AIPlayer aiPlayer, HumanPlayer humanPlayer) {
+        this.field = field;
+        this.aiPlayer = aiPlayer;
+        Game.WIN_SERIES = WIN_SERIES;
+        this.humanPlayer = humanPlayer;
     }
 
     public AIPlayer getAiPlayer() {
@@ -48,6 +52,10 @@ public class Game {
 
     public Field getFieldFromFile() {
 
+        if (checkFileForNull()) {
+            return null;
+        }
+
         Field field = null;
         if (isFileExists()) {
 
@@ -64,6 +72,10 @@ public class Game {
 
     public void saveField() {
 
+        if (checkFileForNull()) {
+            return;
+        }
+
         try {
             File file = new File(fileName);
             boolean filed = file.createNewFile();
@@ -78,6 +90,10 @@ public class Game {
 
     public void cleanFile() {
 
+        if (checkFileForNull()) {
+            return;
+        }
+
         try {
             File file = new File(fileName);
             boolean isDelete = file.delete();
@@ -89,6 +105,10 @@ public class Game {
 
     private boolean isFileExists() {
         return (new File(fileName).exists());
+    }
+
+    private boolean checkFileForNull() {
+        return fileName == null;
     }
 
 }
