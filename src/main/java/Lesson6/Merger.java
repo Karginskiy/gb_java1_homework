@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class Merger {
+class Merger {
 
     private final String fileNameOne;
     private final String fileNameTwo;
@@ -15,7 +15,7 @@ public class Merger {
         this.fileNameTwo = fileNameTwo;
     }
 
-    public void merge() {
+    void merge() {
 
         try {
             writeInFile(fileNameOne, getFullFile(fileNameTwo));
