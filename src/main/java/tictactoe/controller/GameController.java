@@ -7,8 +7,6 @@ import tictactoe.model.players.AIPlayer;
 import tictactoe.model.players.AbstractPlayer;
 import tictactoe.view.ConsoleView;
 
-import java.io.*;
-import java.util.Arrays;
 import java.util.Random;
 
 public class GameController {
