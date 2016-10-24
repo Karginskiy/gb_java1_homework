@@ -21,6 +21,31 @@ public class ConsoleView implements IView {
         this.game = game;
     }
 
+    public Field askForContinue() {
+
+        if (game.isFileExists()) {
+            Scanner scanner = new Scanner(System.in);
+            stream.println("There's a previous game saved. Wanted to continue or new game?");
+            stream.println("1. Continue");
+            stream.println("2. New game");
+            while (true) {
+                try {
+                    String cur = scanner.next();
+                    if (cur.equals("1")) {
+                        return game.getFieldFromFile();
+                    } else if (cur.equals("2")) {
+                        game.cleanFile();
+                        return null;
+                    }
+                } catch (Exception e) {
+                    System.out.println("Wrong value! Try again.");
+                    continue;
+                }
+            }
+        }
+        return null;
+    }
+
     public void printField() {
         stream.println();
         for (int j = 0; j < Field.SIZE; j++) {
@@ -90,5 +115,6 @@ public class ConsoleView implements IView {
         }
         stream.println(builder.toString());
     }
+
 
 }
