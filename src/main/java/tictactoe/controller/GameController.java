@@ -27,8 +27,9 @@ public class GameController {
         aiMoveController = new AIMoveController(game, view);
         AbstractMoveController moveController;
 
+        view.printHello();
 
-        Field field = game.getFieldFromFile();
+        Field field = view.askForContinue();
 
         if (field != null) {
             game.setField(field);
@@ -39,8 +40,6 @@ public class GameController {
         }
 
         while (!isFieldFull()) {
-
-            view.printHello();
 
             moveController.move();
             game.saveField();
