@@ -103,7 +103,7 @@ public class Game {
 
     }
 
-    private boolean isFileExists() {
+    public boolean isFileExists() {
         return (new File(fileName).exists());
     }
 
