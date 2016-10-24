@@ -3,7 +3,7 @@ package Lesson6;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class FileWatcher {
+class FileWatcher {
 
     private final String fileName;
 
@@ -11,7 +11,7 @@ public class FileWatcher {
         this.fileName = fileName;
     }
 
-    public boolean contains(String string) {
+    boolean contains(String string) {
         return getFullFile().toString().contains(string);
     }
 
